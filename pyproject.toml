@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SLR"
+version = "0.1.0"
+description = "Sine Landmark Reduction Demonstration"
+authors = [
+    { name = "Thingbook.io", email = "roman.f@thingbook.io" }
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "requests",
+    "numpy",
+    "pandas",
+    "matplotlib"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+

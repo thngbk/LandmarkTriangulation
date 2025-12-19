@@ -1,0 +1,7 @@
+resources/DRIFTMIND_CONNECT.txt
+.vscode/
+.data/raw/
+*.egg-info/
+__pycache__/
+*.pyc
+*.csv
