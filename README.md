@@ -169,7 +169,7 @@ slr = LandmarkTriangulation(landmark_mode='hybrid')
 If you use SLR in your research or production visualization, please cite the original article:
 
 ```bibtex
-@article{ferrando2025slr,
+@article{ferrando2025slr_article,
   title={A Linear-Time Alternative To t-SNE for Dimensionality Reduction},
   author={Ferrando, Roman},
   journal={Towards AI},
@@ -181,4 +181,4 @@ If you use SLR in your research or production visualization, please cite the ori
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
