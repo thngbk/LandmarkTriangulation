@@ -14,10 +14,6 @@ dependencies = [
     "numpy",
     "pandas",
     "matplotlib",
-]
-
-[project.optional-dependencies]
-examples = [
     "scikit-learn",
     "jupyter",
 ]
