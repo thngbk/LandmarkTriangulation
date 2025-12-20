@@ -43,7 +43,7 @@ To reproduce this benchmark, please check examples/ folder
 ```bash
 # Clone the repository
 git clone https://github.com/thngbk/LandmarkTriangulation.git
-cd landmark-triangulation
+cd LandmarkTriangulation
 
 # Install dependencies
 pip install -r requirements.txt
