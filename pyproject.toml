@@ -4,16 +4,22 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "landmark-triangulation"          
-version = "1.0.0"                        # adjust if you want 0.2.0, etc.
+version = "1.0.0"                        
 description = "Sine Landmark Reduction (LandmarkTriangulation) for fast dimensionality reduction"
 readme = "README.md"
 requires-python = ">=3.8"
 
-# Minimal example – you'll refine dependencies in Step 3
+# Minimal 
 dependencies = [
     "numpy",
     "pandas",
     "matplotlib",
+]
+
+[project.optional-dependencies]
+examples = [
+    "scikit-learn",
+    "jupyter",
 ]
 
 [tool.setuptools]
