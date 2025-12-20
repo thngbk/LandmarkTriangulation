@@ -51,12 +51,6 @@ pip install -r requirements.txt
 # Install the package
 pip install .
 
-## Optional: Install dependencies for running examples and benchmarks
-
-If you want to run the example notebooks and benchmark scripts included in the `examples/` directory, install the optional dependencies:
-
-pip install "landmark-triangulation[examples]"
-
 ```
 
 ---
