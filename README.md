@@ -55,7 +55,6 @@ pip install .
 
 If you want to run the example notebooks and benchmark scripts included in the `examples/` directory, install the optional dependencies:
 
-```bash
 pip install "landmark-triangulation[examples]"
 
 ```
