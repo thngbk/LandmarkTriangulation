@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite the Zenodo record below."
 title: "A Linear-Time Alternative To t-SNE for Dimensionality Reduction and Fast Visualisation"
 authors:
-  - family-names: "Ferrando"
+  - family-names: "Ferrando-Llopis"
     given-names: "Roman"
     website: "https://thingbook.io"
 type: software

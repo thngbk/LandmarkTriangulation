@@ -4,6 +4,9 @@
 build/
 dist/
 *.egg-info/
+# Jupyter Notebooks
+.ipynb_checkpoints
+*/.ipynb_checkpoints
 __pycache__/
 *.pyc
 *.csv
