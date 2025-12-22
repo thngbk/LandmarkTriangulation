@@ -123,13 +123,6 @@ class LandmarkTriangulation(BaseEstimator, TransformerMixin):
             temp_scaler = StandardScaler().fit(X)
             X_normalized = temp_scaler.transform(X)
 
-            # # Scale synthetic landmarks to match the normalized space
-            # synthetic_normalized = temp_scaler.transform(synthetic)
-
-            # # Calculate indices of the nearest real neighbor for every ghost
-            # nearest_indices = pairwise_distances_argmin(
-            #     synthetic_normalized, X_normalized
-            # )
             # Calculate indices of the nearest real neighbor for every ghost
             nearest_indices = pairwise_distances_argmin(synthetic, X_normalized)
             return X[nearest_indices].copy()
@@ -210,13 +203,13 @@ class LandmarkTriangulation(BaseEstimator, TransformerMixin):
         # Step 1: Select landmarks
         self.landmarks_high_ = self._select_landmarks(X, rng)
 
-        # Step 2: Fit scaler on training data and scale landmarks
+        # Step 2: Create initial low-dimensional embedding using PCA
+        pca = PCA(n_components=self.n_components, random_state=self.random_state)
+        landmarks_low_raw = pca.fit_transform(self.landmarks_high_)
+
+        # Step 3: Fit scaler on training data and scale landmarks
         self.scaler_ = StandardScaler().fit(X)
         self.landmarks_high_scaled_ = self.scaler_.transform(self.landmarks_high_)
-
-        # Step 3: Create initial low-dimensional embedding using PCA
-        pca = PCA(n_components=self.n_components, random_state=self.random_state)
-        landmarks_low_raw = pca.fit_transform(self.landmarks_high_scaled_)
 
         # Step 4: Apply RMS scaling to match scales
         scaling_factor = self._compute_scaling_factor(

@@ -30,7 +30,7 @@ Comparison against Scikit-Learn's t-SNE on a synthetic dataset of 2,000 samples 
 
 ![Benchmark Visualization](./resources/images/benchMark.png)
 
-📊 Reproduce this benchmark in the `examples/` folder.
+📊 Reproduce this benchmark with the notebook in the `examples/` folder.
 
 ---
 
