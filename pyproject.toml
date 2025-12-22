@@ -3,23 +3,83 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "landmark-triangulation"          
-version = "1.0.0"                        
-description = "Sine Landmark Reduction (LandmarkTriangulation) for fast dimensionality reduction"
+name = "landmark-triangulation"
+version = "1.0.1"
+description = "Landmark-based dimensionality reduction using triangulation"
+authors = [
+    { name = "Thingbook.io", email = "roman.f@thingbook.io" }
+]
 readme = "README.md"
 requires-python = ">=3.8"
-
-# Minimal 
-dependencies = [
-    "numpy",
-    "pandas",
-    "matplotlib",
-    "scikit-learn",
-    "jupyter",
+license = {text = "MIT"}
+keywords = ["dimensionality-reduction", "machine-learning", "scikit-learn"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Operating System :: OS Independent",
 ]
+dependencies = [
+    "jupyterlab>=4.3.8",
+    "numpy>=1.20.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.4.0",
+]
+examples = [
+    "matplotlib>=3.3.0",
+    "pandas>=1.2.0",
+    "scikit-learn>=0.24.0",
+    "jupyterlab>=3.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/yourusername/landmark-triangulation"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+addopts = [
+    "--cov=landmark_triangulation",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+]
