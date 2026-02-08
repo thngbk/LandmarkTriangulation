@@ -9,16 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 1. Update version in `pyproject.toml`
 2. Update this CHANGELOG with release date and changes
-3. Commit changes: `git commit -am "Release v1.X.X"`
-4. Create git tag: `git tag v1.X.X`
-5. Push: `git push && git push --tags`
+3. Commit changes and push: `git commit -am "Release v1.X.X" && git push`
+4. Create and push a git tag: `git tag v1.X.X && git push --tags`
+5. **Automation**: The GitHub Action will automatically detect the tag, build the distribution, and publish the package to PyPI via Trusted Publishing
 
 ---
 
 ## [1.1.0] - 2026-02-08
 
 ### ⚠️ Breaking Changes
-- **Minimum Python version raised to 3.9**: Required for modern type hint syntax (`int | None`) and dependency updates.
+- **Minimum Python version raised to 3.9**: Enables modern development tooling and prepares the codebase for PEP 604 type hints (e.g., using `int | None` instead of `Optional[int]`).
 - **Build Backend Migration**: Switched from `setuptools` to `hatchling` for PEP 517 compliance.
 
 ### Added
@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Project Structure**: Renamed main notebook to `tsne_benchmark.ipynb` and reorganized README for better onboarding.
 - **Typing**: Modernized all type hints to use PEP 604 syntax (`from __future__ import annotations`).
 - **Version Logic**: `_version.py` now dynamically reads from package metadata.
+- **Documentation Format**: Migrated `CHANGELOG.rst` to `CHANGELOG.md` for better compatibility with modern tooling and GitHub rendering.
 
 ### Fixed
 - **Notebook Reliability**: Removed fragile `sys.path` hacks in favor of proper installation.

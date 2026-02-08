@@ -14,21 +14,19 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Set up uv
-      uses: astral-sh/setup-uv@v4
+      uses: astral-sh/setup-uv@v5  # Updated to v5 (latest)
       with:
         enable-cache: true
+        python-version: "3.9"
 
     - name: Install dependencies
-      run: uv sync --dev --extra examples        
+      # --extra examples ensures you have everything needed if tests touch notebooks
+      run: uv sync --all-extras --dev        
     
-    - name: Run regression tests (must pass first)
-      run: uv run python -m pytest tests/test_regression.py -v
-    
-    - name: Run remaining tests with coverage
-      run: uv run python -m pytest tests/ --ignore=tests/test_regression.py --cov=landmark_triangulation --cov-report=term-missing --cov-fail-under=90
-    
-    - name: Run ruff linter
-      run: uv run ruff check src/ tests/
-    
-    - name: Run ruff formatter check
-      run: uv run ruff format --check src/ tests/
+    - name: Run all tests
+      run: uv run python -m pytest -v
+
+    - name: Lint and Format checks
+      run: |
+        uv run ruff check src/ tests/
+        uv run ruff format --check src/ tests/

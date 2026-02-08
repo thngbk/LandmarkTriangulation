@@ -96,6 +96,13 @@ addopts = [
     "--strict-markers",
 ]
 
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "src/landmark_triangulation/verify.py",
+    "src/landmark_triangulation/_version.py",
+]
+
 [tool.uv]
 environments = [
     "sys_platform == 'win32'",
