@@ -1,7 +1,9 @@
 # Landmark Triangulation
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PyPI version](https://img.shields.io/pypi/v/landmark-triangulation.svg)](https://pypi.org/project/landmark-triangulation/)
+[![Tests](https://github.com/thngbk/LandmarkTriangulation/actions/workflows/test.yml/badge.svg)](https://github.com/thngbk/LandmarkTriangulation/actions/workflows/test.yml)
 
 > **A deterministic, linear-time alternative to t-SNE for dimensionality reduction.**
 
@@ -25,10 +27,11 @@ Comparison against Scikit-Learn's t-SNE on a synthetic dataset of 2,000 samples 
 | t-SNE           |     21.16s |      1x |             0.84 |
 
 **Key Takeaways:**
+
 - 🚀 **~85× faster** than t-SNE on this dataset
 - 🎯 **96% of t-SNE's clustering quality** (0.81 vs 0.84 score) in a fraction of the time
 
-![Benchmark Visualization](./resources/images/benchMark.png)
+![Benchmark Visualization](./resources/images/benchmark.png)
 
 📊 Reproduce this benchmark with the notebook in the `examples/` folder.
 
@@ -44,31 +47,44 @@ Comparison against Scikit-Learn's t-SNE on a synthetic dataset of 2,000 samples 
 
 ---
 
-## 📦 Installation
+## 🛠 Prerequisites & Installation
 
-Installation instructions are provided using `uv`, but standard `pip` commands work as well.
+### 1. System Requirements
+
+- **Python**: 3.9 or higher.
+- **Windows Users**: You must have the **Visual Studio Build Tools** installed to compile dependencies like `numpy`. 
+    - [Download here](https://visualstudio.microsoft.com/visual-cpp-build-tools/) and select the **"Desktop development with C++"** workload.
+
+### 2. Installation
+
+**From PyPI (recommended):**
+
+```bash
+pip install landmark-triangulation
+```
+
+**From source:**
+
+We recommend using [uv](https://docs.astral.sh/uv/) for development:
 
 ```bash
 # Clone the repository
 git clone https://github.com/thngbk/LandmarkTriangulation.git
 cd LandmarkTriangulation
 
-# Create virtual environment and activate it (optional)
-uv venv
-
-# Activate it
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-
-# Install package in editable mode with dev dependencies
-uv pip install -e .
-
-# Or with development dependencies
-pip install -e ".[dev]"
+# Synchronize the environment (creates .venv and installs everything)
+uv sync
 ```
 
-### Dependencies
+**For development (editable mode with all tools):**
 
-- Python ≥ 3.8
+```bash
+# For development (includes testing tools, linter, and examples):
+uv sync --dev --extra examples
+```
+
+### 3. Dependencies
+
 - NumPy ≥ 1.20.0
 - Scikit-learn ≥ 1.0.0
 
@@ -193,11 +209,11 @@ graph TD
 
 ### Landmark Selection Strategies
 
-| Mode            | Description                                                                          | Best For                           | Performance       |
-|-----------------|--------------------------------------------------------------------------------------|------------------------------------|-------------------|
+| Mode            | Description                                                                          | Best For                           | Performance        |
+|-----------------|--------------------------------------------------------------------------------------|------------------------------------|--------------------|
 | **`random`**    | Randomly selects k points from your dataset                                          | General purpose, dense clusters    | ⭐⭐⭐⭐⭐ (Best)  |
-| **`synthetic`** | Generates a perfect sine-wave path through phase space                               | Visualizing theoretical manifolds  | ⭐⭐⭐            |
-| **`hybrid`**    | **(Recommended)** Generates sine-wave "ghosts" and snaps them to nearest real points | Preserving topology with real data | ⭐⭐⭐⭐          |
+| **`synthetic`** | Generates a perfect sine-wave path through phase space                               | Visualizing theoretical manifolds  | ⭐⭐⭐             |
+| **`hybrid`**    | **(Recommended)** Generates sine-wave "ghosts" and snaps them to nearest real points | Preserving topology with real data | ⭐⭐⭐⭐           |
 
 ```python
 # Recommended: Hybrid mode for most use cases
@@ -211,9 +227,23 @@ transformer = LandmarkTriangulation(
 
 ---
 
+## ⚠️ Common Errors
+
+### 🪟 Windows: C++ Build Tools Missing
+
+If you see an error like `error: Microsoft Visual C++ 14.0 or greater is required` during installation, it means the `numpy` build failed because your system lacks a C++ compiler.
+
+**The Fix:**
+
+1. Download the [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/).
+2. Run the installer and select **"Desktop development with C++"**.
+3. Restart your terminal and run `uv sync` again.
+
+---
+
 ## 📂 Repository Structure
 
-```
+```bash
 landmark-triangulation/
 ├── src/
 │   └── landmark_triangulation/
@@ -222,7 +252,11 @@ landmark-triangulation/
 │       ├── core.py             # Main implementation
 │       └── py.typed            # Type hints marker
 ├── tests/                      # Unit tests
+│   ├── fixtures/
+│   │   ├── golden/             # Golden outputs for regression tests
+│   │   └── generate_golden_outputs.py  # Script to regenerate baselines
 │   ├── conftest.py              # Shared fixtures
+│   ├── test_regression.py       # Regression tests (run first in CI)
 │   ├── test_core.py             # Core functionality tests
 │   ├── test_sklearn_compatibility.py  # Scikit-learn API tests
 │   ├── test_numerical_stability.py    # Numerical correctness
@@ -233,9 +267,104 @@ landmark-triangulation/
 │   └── images/                 # Benchmark plots
 ├── pyproject.toml              # Build configuration
 ├── README.md
-├── CHANGELOG.rst
+├── CHANGELOG.md
 └── LICENSE
 ```
+
+---
+
+## 🧪 Development & Testing
+
+### 🛠️ Environment Setup
+
+To ensure all development tools and hooks are correctly configured, run the following:
+
+```bash
+# 1. Sync the environment (installs dev tools and optional examples)
+uv sync --dev --extra examples
+
+# 2. Install the git pre-commit hooks
+uv run pre-commit install
+```
+
+### 🧪 Testing
+
+This project uses `pytest` for testing with high code coverage standards.
+
+**Current Coverage: 94%** (48 tests)
+
+```bash
+# Run all tests (excludes slow performance tests by default)
+uv run python -m pytest tests/
+
+# Run with coverage report
+uv run python -m pytest tests/ --cov=landmark_triangulation --cov-report=term-missing
+
+# Run ALL tests including slow performance tests
+uv run python -m pytest tests/ -m ""
+
+# Run only fast tests explicitly
+uv run python -m pytest tests/ -m "not slow"
+
+# Run specific test file
+uv run python -m pytest tests/test_core.py
+```
+
+#### Regression Tests
+
+Regression tests ensure code changes don't break expected algorithm behavior. These tests compare current outputs against golden baselines from commit `2e0552a`:
+
+```bash
+# Run regression tests only
+uv run python -m pytest tests/test_regression.py -v
+```
+
+**What's tested:** All landmark modes (random, synthetic, hybrid) in 2D and 3D using fixed synthetic data (500 samples × 20 features, random seed 42).
+
+**Golden outputs:** Stored in `tests/fixtures/golden/` as `.npy` files. See `tests/fixtures/generate_golden_outputs.py` for how test data and baselines are created.
+
+These tests run **first** in the CI pipeline and must pass before other tests execute.
+
+See [tests/TESTING.md](tests/TESTING.md) for detailed testing documentation.
+
+### Test Coverage
+
+View the HTML coverage report:
+
+```bash
+# Generate report
+uv run python -m pytest tests/ --cov=landmark_triangulation --cov-report=html
+
+# Open in browser (Linux/Mac)
+open htmlcov/index.html
+```
+
+### ✨ Code Quality (Pre-commit)
+
+This project uses [pre-commit](https://pre-commit.com/) with [ruff](https://docs.astral.sh/ruff/) to automate code quality. Hooks run automatically before each commit; if issues are found, the commit is blocked until fixed.
+
+**Manual execution:**
+
+```bash
+# Run hooks manually on all files
+uv run pre-commit run --all-files
+```
+
+**What gets checked:**
+
+- **ruff check** (`--fix`): Lints and auto-fixes code issues
+  - `E`, `W`: PEP 8 errors and warnings
+  - `F`: Pyflakes (unused imports, undefined names)
+  - `I`: Import sorting (isort-compatible)
+  - `B`: Bugbear (common bugs and design problems)
+  - `UP`: pyupgrade (modern Python syntax)
+  - `PYI`: Type hint checks
+  - `TID`: Tidy imports
+- **ruff format**: Ensures consistent code formatting (Black-compatible)
+
+### 🚀 Continuous Integration (CI)
+
+All pushes and pull requests are automatically tested via **GitHub Actions** on **Ubuntu** to ensure code integrity and maintain quality standards.
 
 ---
 
@@ -245,54 +374,11 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Run tests (`pytest`)
-4. Format code (`ruff format && ruff check --fix`)
+3. Run tests (`uv run python -m pytest tests/`)
+4. Format code (`uv run ruff format && uv run ruff check --fix`)
 5. Commit changes (`git commit -m 'Add some AmazingFeature'`)
 6. Push to branch (`git push origin feature/AmazingFeature`)
 7. Open a Pull Request
-
----
-
-## 🧪 Testing
-
-This project uses `pytest` for testing with high code coverage standards.
-
-### Running Tests
-
-```bash
-# Install with dev dependencies
-uv pip install -e ".[dev]"
-
-# Run all tests (excludes slow performance tests by default)
-uv run pytest
-
-# Run with coverage report
-uv run pytest --cov=landmark_triangulation --cov-report=html
-
-# Run ALL tests including slow performance tests
-uv run pytest -m ""
-
-# Run only fast tests explicitly
-uv run pytest -m "not slow"
-
-# Run specific test file
-uv run pytest tests/test_core.py
-
-# Run with verbose output
-uv run pytest -v
-```
-
-### Test Coverage
-
-View the HTML coverage report:
-
-```bash
-# Generate report
-uv run pytest --cov=landmark_triangulation --cov-report=html
-
-# Open in browser (Linux/Mac)
-open htmlcov/index.html
-```
 
 ---
 

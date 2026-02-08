@@ -1,16 +1,17 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "landmark-triangulation"
-version = "1.0.1"
+version = "1.0.2"
 description = "Landmark-based dimensionality reduction using triangulation"
 authors = [
-    { name = "Thingbook.io", email = "roman.f@thingbook.io" }
+    { name = "Thingbook.io", email = "roman.f@thingbook.io" },
+    { name = "landmark-triangulation contributors" }
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {text = "MIT"}
 keywords = ["dimensionality-reduction", "machine-learning", "scikit-learn"]
 classifiers = [
@@ -18,7 +19,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -28,39 +28,37 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "jupyterlab>=4.3.8",
     "numpy>=1.20.0",
     "scikit-learn>=1.0.0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "ruff>=0.4.0",
+    "pre-commit>=3.0.0",
 ]
+
+[project.optional-dependencies]
 examples = [
     "matplotlib>=3.3.0",
     "pandas>=1.2.0",
-    "scikit-learn>=0.24.0",
-    "jupyterlab>=3.0.0",
+    "jupyterlab>=4.3.8",
 ]
 
 [project.urls]
-Repository = "https://github.com/yourusername/landmark-triangulation"
+Repository = "https://github.com/thngbk/LandmarkTriangulation"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
-
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/landmark_triangulation"]
 
 [tool.ruff]
 line-length = 88
-target-version = "py38"
+target-version = "py39"
 
 [tool.ruff.lint]
-select = ["E", "W", "F", "I", "B", "UP"]
+select = ["E", "W", "F", "I", "B", "UP", "PYI", "TID"]
 ignore = ["E501"]
 
 [tool.ruff.format]
@@ -70,8 +68,16 @@ indent-style = "space"
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["landmark_triangulation"]
+combine-as-imports = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
@@ -82,4 +88,12 @@ addopts = [
     "--cov=landmark_triangulation",
     "--cov-report=term-missing",
     "--cov-report=html",
+    "--cov-fail-under=90",
+    "--strict-markers",
+]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'win32'",
+    "sys_platform == 'linux'",
 ]
