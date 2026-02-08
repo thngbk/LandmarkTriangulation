@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Operating System :: OS Independent",
@@ -49,6 +50,9 @@ examples = [
 
 [project.urls]
 Repository = "https://github.com/thngbk/LandmarkTriangulation"
+
+[project.scripts]
+lt-check = "landmark_triangulation.verify:run_diagnostic"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/landmark_triangulation"]

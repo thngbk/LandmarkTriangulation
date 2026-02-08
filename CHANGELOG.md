@@ -15,13 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.1.0] - 2025-02-08
+## [1.1.0] - 2026-02-08
 
 ### ⚠️ Breaking Changes
 - **Minimum Python version raised to 3.9**: Required for modern type hint syntax (`int | None`) and dependency updates.
 - **Build Backend Migration**: Switched from `setuptools` to `hatchling` for PEP 517 compliance.
 
 ### Added
+- **Built-in Diagnostic Tool**: Added `landmark_triangulation.verify` module and `lt-check` console script for system verification.
 - **Regression tests**: Golden output tests to prevent algorithm changes from breaking expected behavior.
   - Test fixtures generated from baseline commit (`2e0552a`).
   - Covers all landmark modes (random, synthetic, hybrid) in 2D and 3D.
@@ -31,9 +32,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Windows Support**: Added "Common Errors" section to README regarding C++ build tools.
 
 ### Changed
+- **CLI Entry Points**: Configured `project.scripts` in `pyproject.toml` to expose verification utilities.
 - **Dependency Management**: Moved dev dependencies to `[dependency-groups]` (modern `uv` standard).
 - **Project Structure**: Renamed main notebook to `tsne_benchmark.ipynb` and reorganized README for better onboarding.
-- **Typing**: Modernized all type hints to use PEP 604 syntax.
+- **Typing**: Modernized all type hints to use PEP 604 syntax (`from __future__ import annotations`).
 - **Version Logic**: `_version.py` now dynamically reads from package metadata.
 
 ### Fixed

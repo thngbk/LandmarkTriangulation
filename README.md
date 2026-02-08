@@ -83,7 +83,30 @@ uv sync
 uv sync --dev --extra examples
 ```
 
-### 3. Dependencies
+### 3. Verify Installation
+
+Once installed, verify that the library and its dependencies are communicating correctly with your system architecture:
+
+**Standard Install (pip):**
+```bash
+# Run the built-in diagnostic command
+lt-check
+
+# OR using the python module directly
+python -m landmark_triangulation.verify
+```
+
+**Development Install (uv):**
+
+```bash
+# Run via uv to ensure the local .venv is used
+uv run lt-check
+
+# OR
+uv run python -m landmark_triangulation.verify
+```
+
+### 4. Dependencies
 
 - NumPy ≥ 1.20.0
 - Scikit-learn ≥ 1.0.0
@@ -243,15 +266,16 @@ If you see an error like `error: Microsoft Visual C++ 14.0 or greater is require
 
 ## 📂 Repository Structure
 
-```bash
+```text
 landmark-triangulation/
 ├── src/
 │   └── landmark_triangulation/
 │       ├── __init__.py         # Package exports
-│       ├── _version.py         # Version info
+│       ├── _version.py         # Dynamic version info
 │       ├── core.py             # Main implementation
-│       └── py.typed            # Type hints marker
-├── tests/                      # Unit tests
+│       ├── py.typed            # Marker for PEP 561 (Type Hinting)
+│       └── verify.py           # Diagnostic & installation validation
+├── tests/                      # Unit & Regression tests
 │   ├── fixtures/
 │   │   ├── golden/             # Golden outputs for regression tests
 │   │   └── generate_golden_outputs.py  # Script to regenerate baselines

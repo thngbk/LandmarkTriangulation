@@ -51,3 +51,7 @@ logs/
 
 # MyPy
 .mypy_cache/
+
+# Tokens
+*token*.txt
+*token*.json
