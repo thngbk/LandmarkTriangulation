@@ -252,7 +252,7 @@ transformer = LandmarkTriangulation(
 
 ## ⚠️ Common Errors
 
-### 🪟 Windows: C++ Build Tools Missing
+### ⚙️ Windows: C++ Build Tools Missing
 
 If you see an error like `error: Microsoft Visual C++ 14.0 or greater is required` during installation, it means the `numpy` build failed because your system lacks a C++ compiler.
 
@@ -351,7 +351,7 @@ These tests run **first** in the CI pipeline and must pass before other tests ex
 
 See [tests/TESTING.md](tests/TESTING.md) for detailed testing documentation.
 
-### Test Coverage
+#### Test Coverage
 
 View the HTML coverage report:
 
@@ -432,5 +432,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📮 Contact & Support
 
 - **Issues**: [GitHub Issues](https://github.com/thngbk/LandmarkTriangulation/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/thngbk/LandmarkTriangulation/discussions)
 - **Article**: [Medium Post](https://medium.com/towards-artificial-intelligence/a-linear-time-alternative-to-t-sne-for-dimensionality-reduction-and-fast-visualisation-5cd1a7219d6f)
