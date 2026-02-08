@@ -7,32 +7,37 @@ on:
 
 jobs:
   publish:
+    name: Build and publish Python package
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # For trusted publishing (optional, recommended)
-    
+      # REQUIRED for Trusted Publishing
+      id-token: write
+      # Required to checkout the code
+      contents: read
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up uv
       uses: astral-sh/setup-uv@v4
       with:
         enable-cache: true
-    
+
     - name: Verify version matches tag
       run: |
+        # Get tag (e.g., 1.2.3 from v1.2.3)
         TAG_VERSION=${GITHUB_REF#refs/tags/v}
-        PACKAGE_VERSION=$(grep '^version = ' pyproject.toml | cut -d'"' -f2)
+        # Get version from pyproject.toml (handles single/double quotes and spaces)
+        PACKAGE_VERSION=$(grep -m 1 "version =" pyproject.toml | tr -d '"' | tr -d "'" | sed 's/version = //')
+
         if [ "$TAG_VERSION" != "$PACKAGE_VERSION" ]; then
-          echo "Error: Tag version ($TAG_VERSION) does not match package version ($PACKAGE_VERSION)"
+          echo "Error: Git tag ($TAG_VERSION) != pyproject.toml ($PACKAGE_VERSION)"
           exit 1
         fi
         echo "✓ Version check passed: $PACKAGE_VERSION"
-    
+
     - name: Build package
       run: uv build
-    
+
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        password: ${{ secrets.PYPI_API_TOKEN }}
