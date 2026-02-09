@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the Zenodo record below."
+title: "A Linear-Time Alternative To t-SNE for Dimensionality Reduction and Fast Visualisation"
+authors:
+  - family-names: "Ferrando-Llopis"
+    given-names: "Roman"
+    website: "https://thingbook.io"
+type: software
+doi: 10.5281/zenodo.18007950
+url: "https://zenodo.org/records/18007950"
+repository-code: "https://github.com/thngbk/LandmarkTriangulation"
+date-released: 2025-12-15
+license: MIT
