@@ -1,12 +1,57 @@
+# IDE
 .vscode/
+.idea/
+
+# Data
 .data/raw/
-# Distribution / packaging
+*.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.ruff_cache/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Distribution / Packaging
 build/
 dist/
 *.egg-info/
-# Jupyter Notebooks
-.ipynb_checkpoints
-*/.ipynb_checkpoints
-__pycache__/
-*.pyc
-*.csv
+*.egg
+.eggs/
+
+# OS Metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# MyPy
+.mypy_cache/
+
+# Tokens
+*token*.txt
+*token*.json

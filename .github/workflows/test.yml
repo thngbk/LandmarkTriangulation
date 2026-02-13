@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v5  # Updated to v5 (latest)
+      with:
+        enable-cache: true
+        python-version: "3.9"
+
+    - name: Install dependencies
+      # --extra examples ensures you have everything needed if tests touch notebooks
+      run: uv sync --all-extras --dev        
+    
+    - name: Run all tests
+      run: uv run python -m pytest -v
+
+    - name: Lint and Format checks
+      run: |
+        uv run ruff check src/ tests/
+        uv run ruff format --check src/ tests/

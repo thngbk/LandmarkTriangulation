@@ -1,6 +1,8 @@
 """Landmark-based dimensionality reduction implementation."""
 
-from typing import Literal, Optional
+from __future__ import annotations
+
+from typing import Literal
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
@@ -55,7 +57,9 @@ class LandmarkTriangulation(BaseEstimator, TransformerMixin):
         (100, 2)
 
     References:
-        Add your paper/method reference here if applicable.
+        Ferrando-Llopis, R. (2025). A Linear-Time Alternative To t-SNE for
+        Dimensionality Reduction and Fast Visualisation. Zenodo.
+        https://doi.org/10.5281/zenodo.18007950
     """
 
     def __init__(
@@ -63,7 +67,7 @@ class LandmarkTriangulation(BaseEstimator, TransformerMixin):
         n_components: int = 2,
         n_landmarks: int = 50,
         landmark_mode: Literal["random", "synthetic", "hybrid"] = "random",
-        random_state: Optional[int] = 42,
+        random_state: int | None = 42,
     ) -> None:
         self.n_components = n_components
         self.n_landmarks = n_landmarks
@@ -168,9 +172,7 @@ class LandmarkTriangulation(BaseEstimator, TransformerMixin):
 
         return np.sqrt(ss_high / ss_low) if ss_low > 1e-10 else 1.0
 
-    def fit(
-        self, X: ArrayLike, y: Optional[ArrayLike] = None
-    ) -> "LandmarkTriangulation":
+    def fit(self, X: ArrayLike, y: ArrayLike | None = None) -> LandmarkTriangulation:
         """
         Fit the transformer by selecting landmarks and computing the embedding.
 
